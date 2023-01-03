@@ -1,23 +1,24 @@
 import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Map from './Map.js';
+import axios from 'axios';
+
+const baseURL = "http://localhost:3001/stations";
 
 function App() {
+
+  const [stations, setStations] = React.useState(null);
+
+  React.useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setStations(response.data);
+    });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Map />
     </div>
   );
 }
