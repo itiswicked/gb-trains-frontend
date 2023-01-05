@@ -16,14 +16,19 @@ function App() {
     });
   }, []);
 
+  // style={{ position: "absolute" }}
+
   return (
     <div className="App">
-      <img style={{ "zIndex": "auto" }} className="Map-image" src={map} alt="Map of Germany" />
-      {(() => {
-        if (mapNetworkData) {
-          return <Map networkData={mapNetworkData} />;
-        }
-      })()}
+      <div className="Route-planning-container">Route planning</div>
+      <div id="map-container" className="Map-container">
+        <img className="Map-image" src={map} alt="Map of Germany" />
+        {(() => {
+          if (mapNetworkData) {
+            return <Map networkData={mapNetworkData} />;
+          }
+        })()}
+      </div>
     </div>
   );
 }

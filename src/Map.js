@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import * as d3 from "d3";
 
 const WIDTH = 390;
-const HEIGHT = 440;
+const HEIGHT = 450;
 
 class Map extends Component {
-
   componentDidMount() {
-    var svg = d3.select("body")
+    var svg = d3.select("#map-container")
       .append("svg")
       .attr("width", WIDTH)
       .attr("height", HEIGHT)
@@ -24,10 +23,10 @@ class Map extends Component {
 
     enteredSegments
       .append("line")
-      .attr("x1", segment => segment.source_station.coordinates.x)
-      .attr("y1", segment => segment.source_station.coordinates.y)
-      .attr("x2", segment => segment.target_station.coordinates.x)
-      .attr("y2", segment => segment.target_station.coordinates.y)
+      .attr("x1", segment => this.translateX(segment.source_station.coordinates.x))
+      .attr("y1", segment => this.translateY(segment.source_station.coordinates.y))
+      .attr("x2", segment => this.translateX(segment.target_station.coordinates.x))
+      .attr("y2", segment => this.translateY(segment.target_station.coordinates.y))
       .style("stroke", "black")
       .style("stroke-width", 1.5);
 
@@ -39,8 +38,8 @@ class Map extends Component {
     enteredStations
       .append("circle")
       .attr("r", 2)
-      .attr("cx", station => station.coordinates.x)
-      .attr("cy", station => station.coordinates.y)
+      .attr("cx", station => this.translateX(station.coordinates.x))
+      .attr("cy", station => this.translateY(station.coordinates.y))
       .style("fill", "white")
       .style("stroke", "black")
       .style("stroke-width", 2)
@@ -49,13 +48,21 @@ class Map extends Component {
       .append("text")
       .text(station => station.name)
       .attr("text-anchor", "middle")
-      .attr("dx", station => station.coordinates.x)
-      .attr("dy", station => station.coordinates.y - 6)
+      .attr("dx", station => this.translateX(station.coordinates.x))
+      .attr("dy", station => this.translateY(station.coordinates.y - 6))
       .style("font-size", "8px")
   }
 
   render() {
     return null;
+  }
+
+  translateX(value) {
+    return value + 20
+  }
+
+  translateY(value) {
+    return value + 21
   }
 };
 
