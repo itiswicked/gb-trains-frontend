@@ -14,20 +14,22 @@ class Map extends Component {
       .append("g")
 
     const stations = this.props.networkData.stations
-    const links = this.props.networkData.segments
-    console.log(stations);
+    const segments = this.props.networkData.segments
+    console.log(segments);
 
-    // const link = svg
-    //   .selectAll("line")
-    //   .data(linksWithCoordinates)
-    //   .enter()
-    //   .append("line")
-    //   .attr("x1", function (d) { console.log(d); return d.sourceNode.cx; })
-    //   .attr("y1", function (d) { return d.sourceNode.cy; })
-    //   .attr("x2", function (d) { return d.targetNode.cx; })
-    //   .attr("y2", function (d) { return d.targetNode.cy; })
-    //   .style("stroke", "black")
-    //   .style("stroke-width", 2);
+    const enteredSegments = svg
+      .selectAll("line")
+      .data(segments)
+      .enter()
+
+    enteredSegments
+      .append("line")
+      .attr("x1", segment => segment.source_station.coordinates.x)
+      .attr("y1", segment => segment.source_station.coordinates.y)
+      .attr("x2", segment => segment.target_station.coordinates.x)
+      .attr("y2", segment => segment.target_station.coordinates.y)
+      .style("stroke", "black")
+      .style("stroke-width", 1.5);
 
     const enteredStations = svg
       .selectAll("circle")
