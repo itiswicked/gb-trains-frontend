@@ -1,8 +1,10 @@
-import map from './map.png';
 import React from 'react';
-import './App.css';
-import Map from './Map.js';
 import axios from 'axios';
+
+import Map from './Map.js';
+import RoutePlanner from './RoutePlanner.js'
+import map from './map.png';
+import './App.css';
 
 const baseUrl = "http://localhost:3001";
 const mapUrl = `${baseUrl}/map`;
@@ -16,11 +18,11 @@ function App() {
     });
   }, []);
 
-  // style={{ position: "absolute" }}
-
   return (
     <div className="App">
-      <div className="Route-planning-container">Route planning</div>
+      <div className="Route-planning-container">
+        <RoutePlanner />
+      </div>
       <div id="map-container" className="Map-container">
         <img className="Map-image" src={map} alt="Map of Germany" />
         {(() => {

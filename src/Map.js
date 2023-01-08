@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import * as d3 from "d3";
 
-const WIDTH = 390;
-const HEIGHT = 450;
+const WIDTH = 600;
+const HEIGHT = 700;
 
 class Map extends Component {
   componentDidMount() {
@@ -14,7 +14,6 @@ class Map extends Component {
 
     const stations = this.props.networkData.stations
     const segments = this.props.networkData.segments
-    console.log(segments);
 
     const enteredSegments = svg
       .selectAll("line")
@@ -37,20 +36,22 @@ class Map extends Component {
 
     enteredStations
       .append("circle")
-      .attr("r", 2)
+      .attr("r", 3)
       .attr("cx", station => this.translateX(station.coordinates.x))
       .attr("cy", station => this.translateY(station.coordinates.y))
       .style("fill", "white")
       .style("stroke", "black")
       .style("stroke-width", 2)
 
+    const stationLabelPxOffset = 6
+
     enteredStations
       .append("text")
       .text(station => station.name)
       .attr("text-anchor", "middle")
       .attr("dx", station => this.translateX(station.coordinates.x))
-      .attr("dy", station => this.translateY(station.coordinates.y - 6))
-      .style("font-size", "8px")
+      .attr("dy", station => this.translateY(station.coordinates.y - stationLabelPxOffset))
+      .style("font-size", "12px")
   }
 
   render() {
@@ -58,11 +59,11 @@ class Map extends Component {
   }
 
   translateX(value) {
-    return value + 20
+    return value * 1.54 + 4
   }
 
   translateY(value) {
-    return value + 21
+    return value * 1.54 + 5
   }
 };
 

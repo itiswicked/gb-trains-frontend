@@ -1,0 +1,52 @@
+.StationSelector {
+  display: flex;
+}
+
+.StationSelector__input {
+  width: 100%;
+  background-color: white;
+  padding-top: 5px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.StationSelector__input input,
+.StationSelector__input input:focus-visible {
+  border: none;
+  outline: none;
+}
+
+
+.StationSelector__autofill {
+  position: absolute;
+  width: 380px;
+  background-color: white;
+  -webkit-box-shadow: 0px 1px 1px 1px rgba(122, 122, 122, 1);
+  -moz-box-shadow: 0px 1px 1px 1px rgba(122, 122, 122, 1);
+  box-shadow: 0px 1px 1px 1px rgba(122, 122, 122, 1);
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.StationSelector__input-label {
+  width: 50px;
+}
+
+.StationSelector__input-label {
+  background-color: white;
+  padding: 5px 5px 5px 10px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.StationSelector__autofill-item {
+  padding-left: 10px;
+}
+
+.StationSelector__autofill-item:hover {
+  background-color: blue;
+  color: white;
+}
+
+/* For <input> */
+/*  */
