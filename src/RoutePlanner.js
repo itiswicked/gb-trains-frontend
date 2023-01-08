@@ -2,8 +2,8 @@ import React from 'react';
 import './RoutePlanner.css';
 import StationSelector from './StationSelector'
 
-// TODO: Componentize a Field (including field wrap div)
-
+// TODO: This is so basic styling can get done. 
+// Remove when hooking up StationSelector to backend data
 const dummyList = [
   "Berlin",
   "Dusseldorf",
@@ -26,14 +26,12 @@ function RoutePlanner() {
         <div className="RoutePlanner__row">
           <StationSelector
             label={"From"}
-            text={"Berlin Hauptbahnhof"}
             stations={dummyList}
           />
         </div>
         <div className="RoutePlanner__row">
           <StationSelector
             label={"To"}
-            text={"Dusseldorf"}
             stations={dummyList}
           />
         </div>

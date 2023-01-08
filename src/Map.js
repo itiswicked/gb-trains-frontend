@@ -4,6 +4,11 @@ import * as d3 from "d3";
 const WIDTH = 600;
 const HEIGHT = 700;
 
+const STATION_RADIUS = 3;
+const STATION_STROKE_WIDTH = 2;
+const STATION_LABEL_PIXEL_OFFSET = 6
+
+
 class Map extends Component {
   componentDidMount() {
     var svg = d3.select("#map-container")
@@ -36,21 +41,21 @@ class Map extends Component {
 
     enteredStations
       .append("circle")
-      .attr("r", 3)
-      .attr("cx", station => this.translateX(station.coordinates.x))
-      .attr("cy", station => this.translateY(station.coordinates.y))
+      .attr("r", STATION_RADIUS)
+      .attr("cx", station => this.scaleX(station.coordinates.x))
+      .attr("cy", station => this.scaleY(station.coordinates.y))
       .style("fill", "white")
       .style("stroke", "black")
-      .style("stroke-width", 2)
+      .style("stroke-width", STATION_STROKE_WIDTH)
 
-    const stationLabelPxOffset = 6
+
 
     enteredStations
       .append("text")
       .text(station => station.name)
       .attr("text-anchor", "middle")
-      .attr("dx", station => this.translateX(station.coordinates.x))
-      .attr("dy", station => this.translateY(station.coordinates.y - stationLabelPxOffset))
+      .attr("dx", station => this.scaleX(station.coordinates.x))
+      .attr("dy", station => this.scaleY(station.coordinates.y - STATION_LABEL_PIXEL_OFFSET))
       .style("font-size", "12px")
   }
 
@@ -58,11 +63,14 @@ class Map extends Component {
     return null;
   }
 
-  translateX(value) {
+  // This needs to scale, as it was decided that the map image would be larger
+  // than originally anticipated. An 2.0 version of the map would eliminate this issue by 
+  // working with GPS and GIS data.
+  scaleX(value) {
     return value * 1.54 + 4
   }
 
-  translateY(value) {
+  scaleY(value) {
     return value * 1.54 + 5
   }
 };
