@@ -2,14 +2,13 @@ import React from 'react';
 import './StationSelector.css';
 
 class StationSelector extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       autoFillOpen: false,
       searchTerm: "",
       matchedStations: [],
-      selectedStation: "",
+      selectedStation: this.props.selection,
     }
   }
 
@@ -24,11 +23,15 @@ class StationSelector extends React.Component {
   }
 
   handleStationClick = (event) => {
+    const selectedStationId = event.target.attributes.stationid.nodeValue;
+    const selectedStationName = event.target.innerHTML
+    this.props.onSelectionChange(selectedStationId);
+
     this.setState({
       matchedStations: [],
       searchTerm: "",
       autoFillOpen: false,
-      selectedStation: event.target.innerHTML
+      selectedStation: selectedStationName
     });
   }
 
@@ -41,8 +44,9 @@ class StationSelector extends React.Component {
     const filteredStationResults = this
       .props
       .stations
-      .filter(station => station.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1);
+      .filter(station => station.name.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1);
 
+    this.props.onSelectionChange(null);
     this.setState({
       autoFillOpen: true,
       selectedStation: null,
@@ -68,7 +72,13 @@ class StationSelector extends React.Component {
           <div className="StationSelector__autofill">
             {
               this.displayStations().map(station => {
-                return <div onClick={this.handleStationClick} key={station} className="StationSelector__autofill-item">{station}</div>
+                return (
+                  <div
+                    onClick={this.handleStationClick}
+                    stationid={station.id}
+                    key={station.id}
+                    className="StationSelector__autofill-item">{station.name}</div>
+                )
               })
             }
           </div>
