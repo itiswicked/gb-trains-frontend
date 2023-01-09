@@ -4,18 +4,6 @@ import StationSelector from './StationSelector'
 import axios from 'axios';
 import { backendUrl } from './App';
 
-// TODO: This is so basic styling can get done. Remove when hooking up StationSelector to backend.
-const dummyList = [
-  "Berlin",
-  "Dusseldorf",
-  "Frankfurt",
-  "Leipzig",
-  "Hanover",
-  "Nuremberg",
-  "Stuttgard"
-]
-
-
 class RoutePlanner extends React.Component {
   constructor(props) {
     super(props);
