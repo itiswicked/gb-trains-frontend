@@ -1,0 +1,93 @@
+.RoutePlanner__wrapper {
+  background-color: rgb(21, 21, 73);
+}
+
+.RoutePlanner__wrapper,
+.RoutePlanner__search-button-wrapper {
+  padding: 15px;
+}
+
+.RoutePlanner__top-banner {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.RoutePlanner__gb-logo {
+  color: #ffbf00;
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.RoutePlanner__clear-button {
+  color: white;
+  text-align: end;
+}
+
+.RoutePlanner__clear-button,
+.RoutePlanner__dummy-flex-item {
+  width: 65px;
+}
+
+.RoutePlanner__top-banner,
+.RoutePlanner__departure-wrapper {
+  display: flex;
+}
+
+.RoutePlanner__row {
+  margin: 6px 0;
+}
+
+.RoutePlanner__input-label--departure {
+  background-color: white;
+  padding: 5px 5px 5px 10px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.RoutePlanner__input-label--departure {
+  width: 105px;
+}
+
+.RoutePlanner__input-text--departure {
+  display: flex;
+  flex-grow: 1;
+  margin-right: 6px;
+  width: 100%;
+
+  background-color: white;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.RoutePLanner__input-datetime {
+  min-width: 145px;
+  padding-top: 5px;
+
+}
+
+.RoutePlanner__now-button {
+  width: 70px;
+  border: none;
+  border-radius: 2px;
+  background-color: #47597c;
+  color: white;
+}
+
+.RoutePlanner__now-button,
+.RoutePlanner__search-button {
+  border-radius: 2px;
+}
+
+.RoutePlanner__search-button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.RoutePlanner__search-button {
+  border: none;
+  background-color: #ffbf00;
+  color: rgb(21, 21, 73);
+  width: 250px;
+  height: 40px;
+}
