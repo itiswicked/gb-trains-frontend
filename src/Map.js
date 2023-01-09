@@ -27,10 +27,10 @@ class Map extends Component {
 
     enteredSegments
       .append("line")
-      .attr("x1", segment => this.translateX(segment.source_station.coordinates.x))
-      .attr("y1", segment => this.translateY(segment.source_station.coordinates.y))
-      .attr("x2", segment => this.translateX(segment.target_station.coordinates.x))
-      .attr("y2", segment => this.translateY(segment.target_station.coordinates.y))
+      .attr("x1", segment => this.scaleX(segment.source_station.coordinates.x))
+      .attr("y1", segment => this.scaleY(segment.source_station.coordinates.y))
+      .attr("x2", segment => this.scaleX(segment.target_station.coordinates.x))
+      .attr("y2", segment => this.scaleY(segment.target_station.coordinates.y))
       .style("stroke", "black")
       .style("stroke-width", 1.5);
 
@@ -39,6 +39,10 @@ class Map extends Component {
       .data(stations)
       .enter()
 
+    // might need additoinal attr to assign circle id
+    // later down the chain, add a click listener .on, and assign a listener
+    // Stretch goal: use transition to animate color changes for example
+    // For larger click box use Voronio
     enteredStations
       .append("circle")
       .attr("r", STATION_RADIUS)

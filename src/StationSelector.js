@@ -1,76 +1,77 @@
 import React from 'react';
 import './StationSelector.css';
 
-function StationSelector(props) {
-  const lowerCaseLabel = props.label.toLowerCase();
-  const [autoFillOpen, setAutoFillOpen] = React.useState(false);
-  const [searchTerm, updateAutoFillSearchTerm] = React.useState("");
-  const [matchedStations, updateMatchedStations] = React.useState([]);
-  const [selectedStation, updateSelectedStation] = React.useState("");
-  const displayStations = () => {
-    if (matchedStations.length === 0 && searchTerm.length > 0) {
-      return []
-    } else if (matchedStations.length > 0)
-      return matchedStations
-    else {
-      return props.stations
+class StationSelector extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      autoFillOpen: false,
+      searchTerm: "",
+      matchedStations: [],
+      selectedStation: "",
     }
   }
 
-  console.log(selectedStation);
-
-  const handleStationClick = event => {
-    console.log("innnerHTML");
-    console.log(event.target.innerHTML)
-
-    updateMatchedStations([])
-    updateAutoFillSearchTerm("")
-    setAutoFillOpen(false)
-    updateSelectedStation(event.target.innerHTML);
+  displayStations = () => {
+    if (this.state.matchedStations.length === 0 && this.state.searchTerm.length > 0) {
+      return []
+    } else if (this.state.matchedStations.length > 0) {
+      return this.state.matchedStations
+    } else {
+      return this.props.stations
+    }
   }
 
-  const filterMatchedStations = searchTerm => {
-    updateMatchedStations(
-      props.stations.filter(station => {
-        return station.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1
-      })
+  handleStationClick = (event) => {
+    this.setState({ matchedStations: [] });
+    this.setState({ searchTerm: "" });
+    this.setState({ autoFillOpen: false });
+    this.setState({ selectedStation: event.target.innerHTML });
+  }
+
+  toggleAutoFillState = () => {
+    this.state.autoFillOpen ? this.setState({ autoFillOpen: false }) : this.setState({ autoFillOpen: true })
+  }
+
+  handleInputChange = (event) => {
+    this.setState({ autoFillOpen: true });
+    this.setState({ selectedStation: null });
+
+    const searchTerm = event.target.value;
+    const filteredStationResults = this
+      .props
+      .stations
+      .filter(station => station.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1);
+    this.setState({ matchedStations: filteredStationResults });
+    this.setState({ searchTerm: searchTerm });
+  }
+
+  render() {
+    const inputValue = this.state.searchTerm === "" ? this.state.selectedStation : this.state.searchTerm;
+    const label = this.props.label.toLowerCase();
+
+    return (
+      <>
+        <div onClick={this.toggleAutoFillState} className="StationSelector">
+          <label className="StationSelector__input-label" htmlFor={label}>{this.props.label}</label>
+          <div className="StationSelector__input" id={label}>
+            <input value={inputValue} placeholder="Station" onChange={this.handleInputChange} />
+          </div>
+        </div>
+        {
+          this.state.autoFillOpen &&
+          <div className="StationSelector__autofill">
+            {
+              this.displayStations().map(station => {
+                return <div onClick={this.handleStationClick} key={station} className="StationSelector__autofill-item">{station}</div>
+              })
+            }
+          </div>
+        }
+      </>
     )
   }
-
-  const toggleAutoFillState = () => {
-    autoFillOpen ? setAutoFillOpen(false) : setAutoFillOpen(true)
-  }
-
-  const handleInputChange = event => {
-    updateSelectedStation(null)
-    updateAutoFillSearchTerm(event.target.value);
-    filterMatchedStations(event.target.value);
-  }
-
-  const inputValue = () => {
-    return searchTerm === "" ? selectedStation : searchTerm
-  }
-
-  return (
-    <>
-      <div onClick={toggleAutoFillState} className="StationSelector">
-        <label className="StationSelector__input-label" htmlFor={lowerCaseLabel}>{props.label}</label>
-        <div className="StationSelector__input" id={lowerCaseLabel}>
-          <input value={inputValue()} placeholder="Station" onChange={handleInputChange} />
-        </div>
-      </div>
-      {
-        autoFillOpen &&
-        <div className="StationSelector__autofill">
-          {
-            displayStations().map(station => {
-              return <div onClick={handleStationClick} key={station} className="StationSelector__autofill-item">{station}</div>
-            })
-          }
-        </div>
-      }
-    </>
-  )
 }
 
 export default StationSelector;
