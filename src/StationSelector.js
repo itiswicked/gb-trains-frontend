@@ -15,36 +15,40 @@ class StationSelector extends React.Component {
 
   displayStations = () => {
     if (this.state.matchedStations.length === 0 && this.state.searchTerm.length > 0) {
-      return []
+      return [];
     } else if (this.state.matchedStations.length > 0) {
-      return this.state.matchedStations
+      return this.state.matchedStations;
     } else {
-      return this.props.stations
+      return this.props.stations;
     }
   }
 
   handleStationClick = (event) => {
-    this.setState({ matchedStations: [] });
-    this.setState({ searchTerm: "" });
-    this.setState({ autoFillOpen: false });
-    this.setState({ selectedStation: event.target.innerHTML });
+    this.setState({
+      matchedStations: [],
+      searchTerm: "",
+      autoFillOpen: false,
+      selectedStation: event.target.innerHTML
+    });
   }
 
   toggleAutoFillState = () => {
-    this.state.autoFillOpen ? this.setState({ autoFillOpen: false }) : this.setState({ autoFillOpen: true })
+    this.setState({ autoFillOpen: !this.state.autoFillOpen });
   }
 
   handleInputChange = (event) => {
-    this.setState({ autoFillOpen: true });
-    this.setState({ selectedStation: null });
-
     const searchTerm = event.target.value;
     const filteredStationResults = this
       .props
       .stations
       .filter(station => station.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1);
-    this.setState({ matchedStations: filteredStationResults });
-    this.setState({ searchTerm: searchTerm });
+
+    this.setState({
+      autoFillOpen: true,
+      selectedStation: null,
+      matchedStations: filteredStationResults,
+      searchTerm: searchTerm
+    });
   }
 
   render() {
